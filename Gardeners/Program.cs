@@ -34,35 +34,35 @@ namespace Gardeners
                     else
                     {
                         Console.WriteLine("Садовник1 пропускает сад {0},{1}, его уже обработал Садовник2", i, j);
-                    }                    
-                    Thread.Sleep(50);
+                    }
+                    Thread.Sleep(1);
                 }
             }
-            
+
 
         }
 
         //Настройка метода обработки сада справа-налево снизу-вверх.
         public static void GardenWorks2()
         {
-            for (int i = n1-1; i >= 0; i--)
+            for (int i = n2 - 1; i >= 0; i--)
             {
-                for (int j = n2-1; j >= 0; j--)
+                for (int j = n1 - 1; j >= 0; j--)
                 {
-                    if (garden[i, j] == false)
+                    if (garden[j, i] == false)
                     {
-                        garden[i, j] = true;
-                        Console.WriteLine("Садовник2 обрабатывает сад {0},{1}", i, j);
+                        garden[j, i] = true;
+                        Console.WriteLine("Садовник2 обрабатывает сад {0},{1}", j, i);
                     }
                     else
                     {
-                        Console.WriteLine("Садовник2 пропускает сад {0},{1}, его уже обработал Садовник1", i, j);
+                        Console.WriteLine("Садовник2 пропускает сад {0},{1}, его уже обработал Садовник1", j, i);
                     }
-                    
-                    Thread.Sleep(50);
+
+                    Thread.Sleep(1);
                 }
             }
-            
+
         }
 
         static void Main(string[] args)
@@ -84,11 +84,11 @@ namespace Gardeners
                 ThreadStart gardenerDelegate1 = new ThreadStart(GardenWorks1);
                 Thread gardener1 = new Thread(gardenerDelegate1);
                 gardener1.Start();
-                
+
 
                 //Второй поток (садовник2).
                 ThreadStart gardenerDelegate2 = new ThreadStart(GardenWorks2);
-                Thread gardener2 = new Thread(gardenerDelegate2);                
+                Thread gardener2 = new Thread(gardenerDelegate2);
                 gardener2.Start();
 
             }
